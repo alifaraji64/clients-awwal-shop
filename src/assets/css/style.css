@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.log_input{
+    @apply border-2 border-gray-400 my-1.5 bg-gray-100 text-gray-800 placeholder-gray-400;
+}
+.flex-col-center{
+    @apply flex flex-col justify-center items-center;
+}
+.addborder{
+    @apply border-4 border-green-400 border-solid;
+}
+.link-effects{
+    @apply my-2  hover:text-white;
+}
