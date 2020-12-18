@@ -1,16 +1,32 @@
 <template>
   <main>
       <Navbar/>
+      <div class="bg-gray-200 flex justify-between items-center py-1">
+        <h3>Category: <span>{{search}}</span></h3>
+        <input type="text"  placeholder="search by category" class="bg-gray-200 w-30 mr-2" v-model="search">
+      </div>
       <div id="login-form" class="flex flex-col items-center">
           <h1 class="text-blue-400 text-xl font-bold mb-5">Item List</h1>
-          <div class="flex flex-col justify-center w-full items-center">
-              <section class="flex justify-between w-full bg-gray-100 p-1 items-center px-2" v-for="(item,index) in items" :key="index">
-                  <p v-html="(item.name.length > 10) ? item.name : (item.name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')"></p>
-                  <p>MVR {{item.price}}</p>
-                  <input type="text" disabled class="log_input w-10 rounded-lg" :value="item.quantity">
-                  <button class="text-red-500" @click="edit(item)">EDIT</button>
-              </section>
-          </div>
+            <table class="table-auto w-3/4">
+            <thead class="mb-4">
+                <tr>
+                <th>category</th>
+                <th>name</th>
+                <th>price</th>
+                <th>quantity</th>
+                <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in filteredItems" :key="index" class=" text-center" :class="index%2==0 ? 'bg-gray-300':''">
+                    <td>{{item.category}}</td>
+                    <td>{{item.name}}</td>
+                    <td>MVR {{item.price}}</td>
+                    <td>MVR {{item.quantity}}</td>
+                    <td><button class="text-red-500" @click="edit(item)">EDIT</button></td>
+                </tr>
+            </tbody>
+            </table>
       </div>
   </main>
 </template>
@@ -21,7 +37,8 @@ export default {
     components:{Navbar},
     data(){
         return{
-            items:[]
+            items:[],
+            search:'',
         }
     },
     methods:{
@@ -29,6 +46,11 @@ export default {
             //commiting a mutation for adding the selected item to our store
             this.$store.commit('setItem',item);
             this.$router.push('/add-product');
+        },
+    },
+    computed:{
+        filteredItems(){
+            return this.items.filter((item)=>item.category.includes(this.search))
         }
     },
     async mounted(){
@@ -43,5 +65,8 @@ export default {
 </script>
 
 <style>
-
+table{
+      border-collapse:separate;
+      border-spacing: 0 1em;
+}
 </style>

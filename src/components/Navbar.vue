@@ -9,17 +9,15 @@
         <i class="fas fa-bars  fa-2x text-blue-500 cursor-pointer" @click="show = !show"></i>
       </section>
     </nav>
-    <div class="bg-gray-200 flex justify-between items-center py-1">
-      <h3>Category: <span>not selected</span></h3>
-      <input type="text"  placeholder="search..." class="bg-gray-200 w-20">
-    </div>
     <aside class=" absolute right-0 top-0 w-1/3 h-full bg-gray-500" v-if="show">
       <i class="fas fa-times fa-2x text-blue-400 cursor-pointer" @click="show = !show"></i>
       <!-- links -->
       <div class="w-full flex-col-center text-gray-200 text-lg font-bold">
-        <router-link to="/login" class="link-effects">login</router-link>
-        <router-link to="/add-product" class="link-effects">add product</router-link>
-        <router-link to="/view-products" class="link-effects">view products</router-link>
+        <router-link to="/login" class="link-effects" v-if="!isLoggedIn">login</router-link>
+        <router-link to="/register" class="link-effects" v-if="!isLoggedIn">Register</router-link>
+        <router-link to="/add-product" class="link-effects" v-if="isLoggedIn">add product</router-link>
+        <router-link to="/view-products" class="link-effects" v-if="isLoggedIn">view products</router-link>
+        <router-link to="/view-public" class="link-effects" >view products (public)</router-link>
         <p class="link-effects cursor-pointer addborder px-3 py-1 bg-gray-300 text-gray-800" v-if="isLoggedIn" @click="logout">logout</p>
       </div>
       <!-- !links end -->

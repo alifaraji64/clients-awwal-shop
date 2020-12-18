@@ -26,9 +26,6 @@ export default {
         async login() {
         let res = await auth
         .signInWithEmailAndPassword(this.email, this.password);
-        let uid = res.user.uid;
-        //extracting the firebase provided uid and store it in localstorage
-        localStorage.setItem("UID", uid);
         this.$router.push("/add-product");
     },
     }
